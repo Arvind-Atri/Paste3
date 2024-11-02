@@ -16,7 +16,7 @@ const Paste = () => {
 
   // Filter pastes based on search term (by title or content)
   const filteredPastes = pastes.filter((paste) =>
-    paste.title.toLowerCase().includes(searchTerm.toLowerCase())
+    paste?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
 
   return (
