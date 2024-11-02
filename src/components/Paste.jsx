@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromPaste, updateToPaste } from "../features/pasteSlice";
+// import { removeFromPaste, updateToPaste } from "../features/pasteSlice";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { removeFromPastes } from "../redux/pasteSlice";
 
 const Paste = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,7 +17,7 @@ const Paste = () => {
   );
 
   const handleDelete = (pasteId) => {
-    dispatch(removeFromPaste(pasteId));
+    dispatch(removeFromPastes(pasteId));
     toast.success("Paste Deleted");
   };
 
