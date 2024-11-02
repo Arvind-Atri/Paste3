@@ -1,20 +1,30 @@
 import { Copy } from "lucide-react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+// Import your data-fetching action, e.g., fetchPastes
+import { fetchPastes } from "../actions/pasteActions";
 
 const ViewPaste = () => {
   const { id } = useParams();
-
-  console.log("Paste ID:", id);
+  const dispatch = useDispatch();
 
   const pastes = useSelector((state) => state.paste.pastes);
+  console.log("Paste ID:", id);
   console.log("Pastes from store:", pastes);
 
-  // Find the paste with the matching ID, if it exists
+  // Fetch pastes if they are not loaded
+  useEffect(() => {
+    if (!pastes || pastes.length === 0) {
+      dispatch(fetchPastes());
+    }
+  }, [pastes, dispatch]);
+
+  // Find the paste with the matching ID
   const paste = pastes?.find((paste) => paste._id === id);
 
-  // Conditional rendering to handle undefined paste
+  // Conditional rendering for undefined paste
   if (!paste) {
     return <div>Loading...</div>;
   }
